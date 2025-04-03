@@ -33,7 +33,7 @@ public class VehicleController {
     @RequestMapping("/home/deleteVehicle")
     public String deleteVehicle(Model model, @RequestParam int vehicleId) {
         Vehicle vehicle = vehicleService.findById(vehicleId);
-        if(!isOwner(vehicle)) {
+        if(vehicle == null  || !isOwner(vehicle)) {
             return "redirect:/home/vehicles";
         }
         vehicleService.deleteById(vehicleId);
@@ -43,7 +43,7 @@ public class VehicleController {
     @RequestMapping("/home/updateVehicle")
     public String updateVehicle(Model model, @RequestParam int vehicleId) {
         Vehicle vehicle = vehicleService.findById(vehicleId);
-        if(!isOwner(vehicle)) {
+        if(vehicle == null || !isOwner(vehicle)) {
             return "redirect:/home/vehicles";
         }
         model.addAttribute("vehicle", vehicle);
@@ -107,6 +107,7 @@ public class VehicleController {
         } else {
             Client client = clientService.findByUsername(username);
             vehicle.setClient(client);
+            vehicle.setCreationDate(ZonedDateTime.now());
         }
 
         vehicleRepo.save(vehicle);
@@ -151,6 +152,9 @@ public class VehicleController {
     }
 
     private boolean isOwner(Vehicle vehicle) {
+        if(vehicle == null) {
+            return false;
+        }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Client client = clientService.findByUsername(username);
