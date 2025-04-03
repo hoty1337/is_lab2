@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicles list</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <h1>Vehicles list</h1>
+        <table class="table-wrapper">
+            <tr>
+                <td>
+                    <p>Delete by Fuel Type</p>
+                </td>
+                <td>
+                    <form th:action="@{/home/deleteByFuelType}" method="post">
+                        <select name="fuelType">
+                            <option th:each="type : ${T(my.hoty.lab2xx.entity.FuelType).values()}"
+                                    th:value="${type}"
+                                    th:text="${type}"></option>
+                        </select>
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Average Fuel Consumption: </p>
+                    <p th:text="${vehicleService.calculateAverageFuelConsumption()}"></p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Count by Fuel Type: </p>
+                    <ul>
+                        <li th:each="entry : ${vehicleService.getCountByFuelType()}">
+                            <span th:text="${entry.key}"></span>:
+                            <span th:text="${entry.value}"></span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Find by Engine Power Range</p>
+                </td>
+                <td>
+                    <form th:action="@{/home/byEnginePower}" method="get">
+                        <input type="number" name="min" placeholder="Min power" step="0.1">
+                        <input type="number" name="max" placeholder="Max power" step="0.1">
+                        <button type="submit">Search</button>
+                    </form>
+                </td>
+                <td>
+                    <fieldset th:if="${vehiclesEngine != null}">
+                        <ul>
+                            <li th:each="v : ${vehiclesEngine}" th:text="${v.name + ' - ' + v.enginePower}"></li>
+                        </ul>
+                    </fieldset>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Add Wheels</p>
+                </td>
+                <td>
+                    <form th:action="@{/home/addWheels}" method="post">
+                        <input type="number" name="id" placeholder="Vehicle ID">
+                        <input type="number" name="wheelsToAdd" placeholder="Wheels to add">
+                        <button type="submit">Add Wheels</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+        <form th:action="@{filter}" method="post">
+            <input type="text" id="filter" name="filter" th:value="${filter}"/>
+
+            <select id="field" name="field">
+                <option th:selected="${field == 'Id'}" value="Id">Id</option>
+                <option th:selected="${field == 'Creation Date'}" value="Creation Date">Creation Date</option>
+                <option th:selected="${field == 'Name'}" value="Name">Name</option>
+                <option th:selected="${field == 'Type'}" value="Type">Type</option>
+                <option th:selected="${field == 'Engine Power'}" value="Engine Power">Engine Power</option>
+                <option th:selected="${field == 'Number of Wheels'}" value="Number of Wheels">Number of Wheels</option>
+                <option th:selected="${field == 'Capacity'}" value="Capacity">Capacity</option>
+                <option th:selected="${field == 'Distance Travelled'}" value="Distance Travelled">Distance Travelled</option>
+                <option th:selected="${field == 'Fuel Consumption'}" value="Fuel Consumption">Fuel Consumption</option>
+                <option th:selected="${field == 'Fuel Type'}" value="Fuel Type">Fuel Type</option>
+                <option th:selected="${field == 'Coord X'}" value="Coord X">Coord X</option>
+                <option th:selected="${field == 'Coord Y'}" value="Coord Y">Coord Y</option>
+            </select>
+
+            <select id="sort" name="sort">
+                <option th:selected="${sort == 0}" th:value="0">None</option>
+                <option th:selected="${sort == 1}" th:value="1" >Up</option>
+                <option th:selected="${sort == -1}" th:value="-1">Down</option>
+            </select>
+
+            <button type="submit">Filter</button>
+        </form>
+        <div class="table-wrapper">
+            <table id="vehicles_table" style="width:100%">
+                <thead>
+                <tr>
+                    <th scope="row"></th>
+                    <th scope="row"></th>
+
+                    <th scope="row">Id</th>
+                    <th scope="row">Name</th>
+                    <th scope="row">Type</th>
+                    <th scope="row">Engine Power</th>
+                    <th scope="row">Number of Wheels</th>
+                    <th scope="row">Capacity</th>
+                    <th scope="row">Distance Travelled</th>
+                    <th scope="row">Fuel Consumption</th>
+                    <th scope="row">Fuel Type</th>
+                    <th scope="row">Creation Date</th>
+                    <th scope="row">Coord X</th>
+                    <th scope="row">Coord Y</th>
+                    <th scope="row">Owner</th>
+
+        <!--                <th scope="row">Owner</th>-->
+                </tr>
+
+                </thead>
+                <tbody>
+                <tr th:each="vehicle: ${vehicles}">
+                    <td>
+                        <form th:if="${isAdmin} or ${vehicle.client.getId()} == ${client.getId()}" th:action="@{deleteVehicle}" method="post">
+                            <input type="hidden" th:value="${vehicle.id}" name="vehicleId"/>
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:if="${isAdmin} or ${vehicle.client.getId()} == ${client.getId()}" th:action="@{updateVehicle}" method="post">
+                            <input type="hidden" th:value="${vehicle.id}" name="vehicleId"/>
+                            <button type="submit">Update</button>
+                        </form>
+                    </td>
+
+                    <td th:text="${vehicle.id}"></td>
+                    <td th:text="${vehicle.name}"></td>
+                    <td th:text="${vehicle.type}"></td>
+                    <td th:text="${vehicle.enginePower}"></td>
+                    <td th:text="${vehicle.numberOfWheels}"></td>
+                    <td th:text="${vehicle.capacity}"></td>
+                    <td th:text="${vehicle.distanceTravelled}"></td>
+                    <td th:text="${vehicle.fuelConsumption}"></td>
+                    <td th:text="${vehicle.fuelType}"></td>
+                    <td th:text="${vehicle.creationDate}"></td>
+                    <td th:text="${vehicle.coordinates.x}"></td>
+                    <td th:text="${vehicle.coordinates.y}"></td>
+                    <td th:text="${vehicle.client.getUsername()}"></td>
+
+        <!--                <td th:text="${vehicle.client.username}"></td>-->
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <form th:action="@{/home}" method="get">
+            <button type="submit">Go Back</button>
+        </form>
+
+
+    </div>
+
+</body>
+</html>

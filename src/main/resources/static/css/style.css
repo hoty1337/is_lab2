@@ -1,0 +1,133 @@
+html, body {
+    background-color: #fff;
+    color: white;
+    height: 100%;
+    width: 100%;
+    /*overflow: hidden;*/
+    align-content: center;
+    text-align: center;
+    margin: auto;
+    font-family: Helvetica, sans-serif;
+    font-size: 14pt;
+}
+
+table#vehicles_table td {
+    border-color: white;
+    border-style:solid;
+    padding: 10px;
+    display: table-cell;
+}
+
+.inline td {
+    border-color: white;
+    border-style:solid;
+    padding: 10px;
+    display: table-cell;
+}
+
+table#vehicles_table button {
+    margin: 0;
+}
+
+.table-wrapper {
+    overflow: auto;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 10px;
+    display:flex;
+    justify-content:center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    max-height: 300px;
+    margin: auto;
+    text-align: center;
+    background: black;
+    color: white;
+}
+
+input, select {
+    /*border: transparent;*/
+    border-radius: 10px;
+    padding: 10px;
+    bottom: 1px;
+    left: 0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.alert-error {
+    color: darkred;
+}
+
+button, input[type="button"], input[type="submit"] {
+    background-color: black ;
+    color: white ;
+    border-color: white ;
+    border-radius: 10px ;
+    padding: 10px;
+    margin: 5px 5px;
+    min-height: 25px;
+    min-width: 200px;
+    text-align: center;
+    font-size: 14pt;
+}
+
+a:link, a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+a:active {
+    color: #490000;
+}
+
+
+h1 {
+    margin: 0 0 50px;
+}
+
+button:hover {
+    /*transition: .15s;*/
+    background: #5c5c5c;
+    color: white;
+    cursor: pointer;
+}
+
+div {
+    width: fit-content;
+    min-width: 300px;
+    max-width: 90%;
+    height: fit-content;
+    border-radius: 10px;
+    align-content: center;
+    background-color: black;
+    margin: auto;
+    padding: 50px;
+}
+
+.table-wrapper .field_set {
+    display:inline-flex;
+}
+
+.field_set{
+    border-style: solid;
+    min-width: 200px;
+    width: min-content;
+    border-radius: 10px;
+    align-content: center;
+    background-color: black;
+    margin: 10px auto auto;
+    overflow: auto;
+}
+
+td {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+}
+
+

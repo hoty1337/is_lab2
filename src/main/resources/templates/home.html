@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <h1>Home</h1>
+        <form th:action="@{/home/newVehicle}" method="get">
+            <button type="submit">New vehicle</button>
+        </form>
+        <form th:action="@{/home/vehicles}" method="get">
+            <button type="submit">List vehicles</button>
+        </form>
+        <form th:action="@{/import}" method="get">
+            <button type="submit">Import vehicles</button>
+        </form>
+        <a th:href="@{/admin}" sec:authorize="hasAuthority('ADMIN')">ADMIN PANEL</a> <br>
+        <form th:action="@{/logout}" method="post"  sec:authorize="isAuthenticated()">
+            <button type="submit" value="Logout">Logout</button>
+        </form>
+    </div>
+</body>
+</html>
+
+

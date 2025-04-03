@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Error</title>
+</head>
+<body>
+    <div>
+        <h1>Something went wrong...</h1>
+
+        <a th:href="@{/home}" sec:authorize="isAuthenticated()">Back to home</a>
+    </div>
+</body>
+</html>

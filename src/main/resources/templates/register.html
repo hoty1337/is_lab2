@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Signing up</title>
+</head>
+
+<body>
+
+<div>
+    <h1>Sign up</h1>
+    <p th:if="${error != null}" class="alert alert-error">
+        <p th:text="${error}" style="color: red;">
+    </p>
+    <form name="f" th:action="@{/register}" th:object="${client}" method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td> <label for="username">Username</label> </td>
+                <td> <input type="text" id="username" name="username"/> </td>
+            </tr>
+            <tr>
+                <td> <label for="password">Password</label> </td>
+                <td> <input type="password" id="password" name="password"/> </td>
+            </tr>
+            <tr>
+                <td> </td>
+                <td> <button type="submit" class="btn">Sign up</button> </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/}">Back</a>
+    </form>
+</div>
+</body>
+</html>

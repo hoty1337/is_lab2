@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Sign in</title>
+</head>
+
+<body>
+    <div>
+        <h1>Sign in</h1>
+        <form name="f" th:action="@{/login}" method="post">
+
+            <p th:if="${param.error}" class="alert alert-error">
+                Invalid username or password.
+                <p th:text="${param.error}" style="color: red;">
+            </p>
+
+            <table>
+                <tbody>
+                    <tr>
+                        <td> <label for="username">Username</label> </td>
+                        <td> <input type="text" id="username" name="username"/> </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="password">Password</label> </td>
+                        <td> <input type="password" id="password" name="password"/> </td>
+                    </tr>
+                    <tr>
+                        <td> </td>
+                        <td> <button type="submit" class="btn">Sign in</button> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href="@{/}">Back</a>
+        </form>
+    </div>
+</body>
+
+</html>
+
+

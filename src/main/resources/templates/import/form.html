@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Import vehicles</title>
+</head>
+<body>
+<div class="inline">
+    <h1>Import Vehicles</h1>
+
+    <form method="post" enctype="multipart/form-data" th:action="@{/import}">
+        <input type="file" name="file" accept=".json" required>
+        <button type="submit">Import</button>
+    </form>
+
+    <h2>Import History</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>File</th>
+            <th>Status</th>
+            <th>User</th>
+            <th>Imported</th>
+        </tr>
+        <tr th:each="op : ${history}">
+            <td th:text="${op.id}"></td>
+            <td th:text="${#temporals.format(op.timestamp, 'dd.MM.yyyy HH:mm')}"></td>
+            <td th:text="${op.filename}"></td>
+            <td th:text="${op.status}"></td>
+            <td th:text="${op.importedBy.username}"></td>
+            <td th:text="${op.status == T(my.hoty.lab2xx.entity.OperationStatus).SUCCESS} ? ${op.importedCount} : '-'"></td>
+        </tr>
+    </table>
+    <form th:action="@{/home}" method="get">
+        <button type="submit">Go Back</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Admin page</title>
+</head>
+<body>
+    <div class="table-wrapper">
+        <h1>Admin Page</h1>
+        <p th:if="${param.success}" style="color: limegreen;">Successfully edit user role!</p>
+        <h3>Список пользователей</h3>
+        <table class="inline">
+            <thead>
+            <tr>
+                <th scope="row">Id</th>
+                <th scope="row">Name</th>
+                <th scope="row">Roles</th>
+                <th scope="row">Edit Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="client: ${clients}">
+                <td th:text="${client.id}"></td>
+                <td th:text="${client.username}"></td>
+                <td>
+                    <ul>
+                        <li th:each="role : ${client.roles}" th:text="${role.name}"></li>
+                    </ul>
+                </td>
+                <td>
+                    <form name="f" th:action="@{/admin/editRole}" th:object="${roles}" method="post">
+                        <input type="hidden" id="username" name="username" th:value="${client.username}">
+                        <label for="roleX">Role:</label>
+                        <select id="roleX" name="roleX" required>
+                            <option value="">-- Select Role --</option>
+                            <option th:each="role : ${roles}"
+                                    th:value="${role.name}"
+                                    th:text="${role.name}"
+                                    th:selected="${client.roles?.contains(role)}"></option>
+                        </select>
+                        <button type="submit" class="btn">Edit</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+        <a th:href="@{/home}">Main menu</a> <br>
+    </div>
+
+</body>
+</html>

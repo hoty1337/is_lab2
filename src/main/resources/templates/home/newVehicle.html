@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/style.css}" rel="stylesheet" />
+    <title>Vehicle Form</title>
+</head>
+<body>
+    <div class="table-wrapper">
+        <h1>Vehicle fields</h1>
+        <div >
+        <form name="f" th:action="@{newVehicle}" th:object="${vehicle}" method="post">
+            <input type="hidden" id="id" name="id" th:value="${vehicle.id}">
+            <input type="hidden" id="creationDate" name="creationDate" th:value="${vehicle.creationDate}">
+            <fieldset class="field_set" >
+                <legend>Coordinates</legend>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td> <label >Coordinate X</label> </td>
+                            <td> <input type="text" th:field="${vehicle.coordinates.x}"/> </td>
+                        </tr>
+                        <tr>
+                            <td> <label >Coordinate Y</label> </td>
+                            <td> <input type="text" th:field="${vehicle.coordinates.y}"/> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+
+            <fieldset class="field_set" >
+                <legend> <span th:text="vehicle"> </span> </legend>
+                <table>
+                    <tr>
+                        <td>
+                            <input type="hidden" th:id="vehicle.id" th:name="vehicle.id" th:value="${vehicle.id}">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td> <label> Name </label> </td>
+                                    <td> <input type="text" th:field="${vehicle.name}"/> </td>
+                                </tr>
+                                <tr>
+                                    <td> <label>Vehicle type</label> </td>
+                                    <td>
+                                        <select th:field="${vehicle.type}">
+                                            <option th:value="HELICOPTER">Helicopter</option>
+                                            <option th:value="BICYCLE">Bicycle</option>
+                                            <option th:value="MOTORCYCLE">Motorcycle</option>
+                                            <option th:value="CHOPPER">Chopper</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> <label> Engine Power </label> </td>
+                                    <td> <input type="text" th:field="${vehicle.enginePower}"/> </td>
+                                </tr>
+                                <tr>
+                                    <td> <label> Number of wheels </label> </td>
+                                    <td> <input type="text" th:field="${vehicle.numberOfWheels}"/> </td>
+                                </tr>
+                                <tr>
+                                    <td> <label> Capacity </label> </td>
+                                    <td> <input type="text" th:field="${vehicle.capacity}"/> </td>
+                                </tr>
+                                <tr>
+                                    <td> <label> Distance travelled </label> </td>
+                                    <td> <input type="text" th:field="${vehicle.distanceTravelled}"/> </td>
+                                </tr>
+                                <tr>
+                                    <td> <label> Fuel consumption </label> </td>
+                                    <td> <input type="text" th:field="${vehicle.fuelConsumption}"/> </td>
+                                </tr>
+                                <tr>
+                                    <td> <label>Fuel type</label> </td>
+                                    <td>
+                                        <select th:field="${vehicle.fuelType}">
+                                            <option th:selected="${vehicle.fuelType == T(my.hoty.lab2xx.entity.FuelType).DIESEL}" th:value="DIESEL" >Diesel</option>
+                                            <option th:selected="${vehicle.fuelType == T(my.hoty.lab2xx.entity.FuelType).MANPOWER}" th:value="MANPOWER">Manpower</option>
+                                            <option th:selected="${vehicle.fuelType == T(my.hoty.lab2xx.entity.FuelType).NUCLEAR}" th:value="NUCLEAR">Nuclear</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <button type="submit" class="btn">Apply</button>
+        </form>
+        </div>
+        <a th:href="@{/home}">Back to home</a>
+    </div>
+
+</body>
+</html>
